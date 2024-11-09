@@ -1,7 +1,7 @@
 <?php
 include 'header.php'; // Include the header for layout and session start
 include 'functions.php'; // Include functions for validation and other actions
-
+guard();
 // Initialize variables for errors and notifications
 $errors = [];
 $notification = null;
@@ -46,12 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form method="POST" action="">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control" id="email" name="email" >
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control" id="password" name="password" >
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Login</button>

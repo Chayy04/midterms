@@ -13,26 +13,4 @@ session_start();
     <title>Document</title>
 </head>
 <body>
-<!-- Breadcrumbs section -->
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-    <?php
-    // Check if we're on specific pages and add breadcrumb items
-    if (basename($_SERVER['PHP_SELF']) == 'dashboard.php') {
-        echo '<li class="breadcrumb-item active" aria-current="page">Dashboard</li>';
-    } elseif (basename($_SERVER['PHP_SELF']) == 'register.php') {
-        echo '<li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>';
-        echo '<li class="breadcrumb-item active" aria-current="page">Register Student</li>';
-    } elseif (basename($_SERVER['PHP_SELF']) == 'edit.php') {
-        echo '<li class="breadcrumb-item"><a href="register.php">Register Student</a></li>';
-        echo '<li class="breadcrumb-item active" aria-current="page">Edit Student</li>';
-    } elseif (basename($_SERVER['PHP_SELF']) == 'delete.php') {
-        echo '<li class="breadcrumb-item"><a href="register.php">Register Student</a></li>';
-        echo '<li class="breadcrumb-item active" aria-current="page">Delete Student</li>';
-    } elseif (basename($_SERVER['PHP_SELF']) == 'logout.php') {
-        echo '<li class="breadcrumb-item active" aria-current="page">Logout</li>';
-    }
-    ?>
-  </ol>
-</nav>
+

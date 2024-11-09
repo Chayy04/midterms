@@ -1,7 +1,6 @@
 <?php
 include '../header.php';  // Corrected path to header.php
 include '../functions.php';  // Corrected path to functions.php
-guard();  // Protect the page to ensure only logged-in users can access
 
 $errors = [];
 $student_data = [];
@@ -84,11 +83,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <td><?php echo htmlspecialchars($student['last_name']); ?></td>
                                 <td>
                                     <!-- Edit Button -->
-                                    <a href="../student/edit.php?index=<?php echo $index; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="edit.php?index=<?php echo $index; ?>" class="btn btn-warning btn-sm">Edit</a>
                                     
                                     <!-- Delete Button -->
-                                    <a href="../student/delete.php?index=<?php echo $index; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                    <a href="delete.php?index=<?php echo $index; ?>" class="btn btn-danger btn-sm">Delete</a>
                                 </td>
+
+
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

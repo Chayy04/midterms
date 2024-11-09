@@ -8,19 +8,14 @@ guard();  // Protect the page to ensure only logged-in users can access
 ?>
 
 <main>
-    <div class="container mt-5">
-        <!-- Breadcrumb for navigation -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-            </ol>
-        </nav>
+
 
         <!-- Dashboard Section -->
-        <div class="d-flex justify-content-between align-items-center">
+         <br>
+        
+        <div class="container  d-flex justify-content-between align-items-center col-md-7">
             <!-- Welcome Text -->
-            <h3>Welcome, <?php echo $_SESSION['email']; ?></h3>
+            <h3>Welcome to the System: <?php echo $_SESSION['email']; ?></h3>
 
             <!-- Logout Button aligned to the right -->
             <button onclick="window.location.href='logout.php'" class="btn btn-danger">Logout</button>
@@ -28,13 +23,13 @@ guard();  // Protect the page to ensure only logged-in users can access
 
         <!-- Register Student Card -->
         <div class="row justify-content-center mt-4">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="card">
-                    <div class="card-header text-center">
-                        <h4>Register a Student</h4>
+                    <div class="card-header">
+                        <h5>Register a Student</h5>
                     </div>
                     <div class="card-body">
-                        <p class="text-center">Register a new student by providing their details below.</p>
+                        <p class="justify-text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde molestias facere, cum debitis nam quis fugiat! Vero, mollitia. Nulla minima dolore molestiae eligendi ducimus beatae ipsum vitae impedit! Ipsa illo eum soluta dolorem earum libero quam necessitatibus dolorum culpa! In aliquid quo rem perspiciatis quibusdam voluptatem, repellat eum corrupti amet.</p>
 
                         <!-- Button to proceed to register a student -->
                         <div class="d-grid gap-2">
@@ -44,7 +39,6 @@ guard();  // Protect the page to ensure only logged-in users can access
                 </div>
             </div>
         </div>
-    </div>
 </main>
 
 <?php

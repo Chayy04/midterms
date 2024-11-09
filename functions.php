@@ -112,4 +112,15 @@ function validateStudentData($student_data) {
     return $errors;
 }
 
+
+// functions.php
+
+// Function to get a student's data by index
+function getSelectedStudentData($index) {
+    if (isset($_SESSION['student_data'][$index])) {
+        return $_SESSION['student_data'][$index];
+    }
+    return false;
+}
+
 ?>
