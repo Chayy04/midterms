@@ -1,58 +1,48 @@
 <?php
-    include 'header.php';
+include 'header.php'; // Include the header for layout and session start
+include 'functions.php'; // Include functions for validation and other actions
+
+// Initialize variables for errors and notifications
+$errors = [];
+$notification = null;
+$isSuccess = false;
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get email and password from the POST data
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    // Validate the login credentials
+    $errors = validateLoginCredentials($email, $password);
+
+    // If no errors, check if the credentials match
+    if (empty($errors)) {
+        $users = getUsers(); // Assume getUsers() returns an array of users
+        if (checkLoginCredentials($email, $password, $users)) {
+            // If login is successful, store the session data and redirect
+            $_SESSION['email'] = $email;  // Store email in session
+            $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  // Store the current page for redirection later
+            header("Location: dashboard.php"); // Redirect to dashboard
+            exit;
+        } else {
+            // If login fails, display notification
+            $notification = "Invalid login credentials.";
+        }
+    } else {
+        // Display form validation errors
+        $notification = displayErrors($errors);
+    }
+}
 ?>
 
-
-    <?php
-        // Include functions
-        include 'functions.php';
-
-        session_start();
-
-        // Check if the user is already logged in (redirect if session is active)
-        checkUserSessionIsActive();
-
-        $errors = [];
-        $notification = null;
-        $isSuccess = false;
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Get the email and password from the form
-            $email = $_POST['email'] ?? '';
-            $password = $_POST['password'] ?? '';
-
-            // Validate the login credentials
-            $errors = validateLoginCredentials($email, $password);
-
-            if (empty($errors)) {
-                // Check if the credentials match any user
-                $users = getUsers();
-                if (checkLoginCredentials($email, $password, $users)) {
-                    $_SESSION['email'] = $email; // Store email in session
-                    $_SESSION['current_page'] = $_SERVER['REQUEST_URI']; // Store the current page in session
-
-                    // Redirect to the dashboard or home page
-                    header("Location: dashboard.php");
-                    exit;
-                } else {
-                    $notification = "Invalid login credentials.";
-                    $isSuccess = false;
-                }
-            } else {
-                $notification = displayErrors($errors);
-                $isSuccess = false;
-            }
-        }
-    ?>
-
 <main>
-
     <div class="container mt-5">
-            <h2 class="text-center">Login</h2>
+        <h2 class="text-center">Login</h2>
 
-            <!-- Show notification if there's an error -->
-            <?php echo renderErrorsToView($notification); ?>
+        <!-- Display error notification -->
+        <?php echo renderErrorsToView($notification); ?>
 
+        <!-- Login form -->
         <form method="POST" action="">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
@@ -69,7 +59,6 @@
     </div>
 </main>
 
-
 <?php
-    include 'footer.php';
+include 'footer.php'; // Include the footer
 ?>
