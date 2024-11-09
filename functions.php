@@ -44,7 +44,7 @@
 
 
     function checkUserSessionIsActive() {
-       // session_start();
+        session_start();
     
         if (isset($_SESSION['email']) && isset($_SESSION['current_page'])) {
             // Redirect to the current page
@@ -91,7 +91,41 @@
     }
 
 
-
+    function checkDuplicateStudentData($student_data) {
+        // Check if the student_id already exists in the session
+        if (!empty($_SESSION['student_data'])) {
+            foreach ($_SESSION['student_data'] as $existing_student) {
+                if ($existing_student['student_id'] === $student_data['student_id']) {
+                    return $existing_student; // Return the existing student if there's a match
+                }
+            }
+        }
+        return null; // Return null if no duplicate is found
+    }
+    
+    function validateStudentData($student_data) {
+        $errors = [];
+    
+        // Check if student ID is provided
+        if (empty($student_data['student_id'])) {
+            $errors[] = "Student ID is required.";
+        }
+    
+        // Check if first name is provided
+        if (empty($student_data['first_name'])) {
+            $errors[] = "First Name is required.";
+        }
+    
+        // Check if last name is provided
+        if (empty($student_data['last_name'])) {
+            $errors[] = "Last Name is required.";
+        }
+    
+        // Optional: Add more validation rules as needed (e.g., length check, format validation)
+        
+        return $errors;
+    }
+    
 
 
     
