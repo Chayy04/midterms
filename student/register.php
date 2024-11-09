@@ -64,10 +64,10 @@
         </form>
 
         <!-- List of Registered Students -->
-        <div class="mt-5">
-            <h3 class="text-center">Registered Students</h3>
+        <?php if (!empty($_SESSION['student_data'])): ?>
+            <div class="mt-5">
+                <h3 class="text-center">Registered Students</h3>
 
-            <?php if (!empty($_SESSION['student_data'])): ?>
                 <!-- Table displaying student information -->
                 <table class="table table-bordered">
                     <thead>
@@ -86,20 +86,20 @@
                                 <td><?php echo htmlspecialchars($student['last_name']); ?></td>
                                 <td>
                                     <!-- Edit Button -->
-                                    <a href="edit_student.php?index=<?php echo $index; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="edit.php?index=<?php echo $index; ?>" class="btn btn-warning btn-sm">Edit</a>
                                     
                                     <!-- Delete Button -->
-                                    <a href="delete.php?index=<?php echo $index; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
-                                    </td>
+                                    <a href="delete.php?index=<?php echo $index; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-            <?php else: ?>
-                <!-- If no students are registered -->
-                <p class="text-center">No students registered yet.</p>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php else: ?>
+            <!-- If no students are registered, show this message 
+            <p class="text-center">No students registered yet.</p> -->
+        <?php endif; ?>
     </div>
 </main>
 
