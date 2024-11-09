@@ -38,11 +38,22 @@
 
 <div class="container justify-content-between align-items-center col-8">
 
-    <div class="container padding-left-3 m-4 col-9">
-        <h3>Edit Student</h3>
+    <h3 class=" mt-4">Edit Student</h3>
+
+    <!-- breadcrumb -->
+    <div class="w-100 mt-4">
+        <div class="container justify-content-between align-items-center bg-light p-2 border r-4 ">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="../dashboard.php">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="student/register.php">Register</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Student</li>
+                </ol>
+            </nav>
+        </div>
     </div>
     
-    <div class=" border border-secondary-1 p-5 m-5 col-10" >
+    <div class=" border border-secondary-1 p-5 mt-3" >
 
         <!-- Edit Student Form -->
         <form method="POST" action="">

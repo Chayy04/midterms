@@ -29,11 +29,24 @@
 
 <main>
     <div class="container justify-content-between align-items-center col-6">
-        <div class="container m-4">
-            <h4 class="mt-4"> Delete a Student</h4>
-        </div>
+        
+        <h3 class=" mt-4">Delete a Student</h3>
 
-        <div class=" border border-secondary-1 p-4 m-5">
+            <!-- breadcrumb -->
+    <div class="w-100 mt-4">
+        <div class="container justify-content-between align-items-center bg-light p-2 border r-4 ">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="../dashboard.php">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="student/register.php">Register</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Delete Student</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+        <div class=" border border-secondary-1 p-4 mt-3">
             <!-- Confirm Deletion Form -->
             <form method="POST" action="">
                 <div class="mb-2">

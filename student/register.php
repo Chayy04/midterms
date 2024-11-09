@@ -32,9 +32,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <main>
+
     <div class="container justify-content-between align-items-center col-8">
 
-        <h2 class=" m-4">Register a New Student</h2>
+    <h2 class=" m-4">Register a New Student</h2>
+
+        <!-- breadcrumb -->
+        <div class=" mt-4 w-100">
+            <div class="bg-light p-2 mb-4 border r-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="../dashboard.php">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Register</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
 
         <!-- Display error messages only if the form was submitted and there are errors -->
         <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($errors)): ?>
