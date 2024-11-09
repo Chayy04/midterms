@@ -35,14 +35,20 @@
 ?>
 
 <main>
-    <div class="container mt-5">
-        <h2>Edit Student</h2>
+
+<div class="container justify-content-between align-items-center col-8">
+
+    <div class="container padding-left-3 m-4 col-9">
+        <h3>Edit Student</h3>
+    </div>
+    
+    <div class=" border border-secondary-1 p-5 m-5 col-10" >
 
         <!-- Edit Student Form -->
         <form method="POST" action="">
             <div class="mb-3">
                 <label for="student_id" class="form-label">Student ID</label>
-                <input type="text" class="form-control" id="student_id" name="student_id" value="<?php echo htmlspecialchars($student['student_id']); ?>" readonly>
+                <input type="text" class="form-control bg-light" id="student_id" name="student_id" value="<?php echo htmlspecialchars($student['student_id']); ?>" readonly>
             </div>
 
             <div class="mb-3">
@@ -55,9 +61,10 @@
                 <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo htmlspecialchars($student['last_name']); ?>" required>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Update Student</button>
+            <button type="submit" class="btn btn-primary">Update Student</button>
         </form>
     </div>
+</div>
 </main>
 
 <?php
