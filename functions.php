@@ -3,10 +3,10 @@
 function getUsers() {
     return [
         ["email" => "admin1@example.com", "password" => "admin1"],
-        ["email" => "admin@example.com", "password" => "admin2"],
-        ["email" => "admin@example.com", "password" => "admin3"],
-        ["email" => "admin@example.com", "password" => "admin4"],
-        ["email" => "admin@example.com", "password" => "admin5"]
+        ["email" => "admin2@example.com", "password" => "admin2"],
+        ["email" => "admin3@example.com", "password" => "admin3"],
+        ["email" => "admin4@example.com", "password" => "admin4"],
+        ["email" => "admin5@example.com", "password" => "admin5"]
     ];
 }
 
@@ -17,7 +17,21 @@ function validateLoginCredentials($email, $password) {
     if (empty($email)) {
         $errors[] = "Email is required.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Please enter a valid email address.";
+        $errors[] = "Invalid Email.";
+    } else {
+        // Check if email exists in the getUsers() array
+        $users = getUsers();
+        $emailExists = false;
+        foreach ($users as $user) {
+            if ($user['email'] === $email) {
+                $emailExists = true;
+                break;
+            }
+        }
+
+        if (!$emailExists) {
+            $errors[] = "Invalid Email.";
+        }
     }
 
     // Validate password
@@ -27,6 +41,7 @@ function validateLoginCredentials($email, $password) {
 
     return $errors;
 }
+
 
 function checkLoginCredentials($email, $password, $users) {
     foreach ($users as $user) {
@@ -56,13 +71,17 @@ function guard() {
 }
 
 function displayErrors($errors) {
-    $output = "<div class='alert alert-danger'><strong>System Errors</strong><ul>";
+    // <strong class='alert alert-danger'>System Errors</strong>
+    $output = "<ul>";
     foreach ($errors as $error) {
         $output .= "<li>" . htmlspecialchars($error) . "</li>";
     }
-    $output .= "</ul></div>";
+    $output .= "</ul>";
     return $output;
 }
+
+
+
 
 function renderErrorsToView($error) {
     if (empty($error)) {
@@ -113,14 +132,21 @@ function validateStudentData($student_data) {
 }
 
 
-// functions.php
-
-// Function to get a student's data by index
-function getSelectedStudentData($index) {
-    if (isset($_SESSION['student_data'][$index])) {
-        return $_SESSION['student_data'][$index];
+    // Function to get a student's data by index
+    function getSelectedStudentData($index) {
+        if (isset($_SESSION['student_data'][$index])) {
+            return $_SESSION['student_data'][$index];
+        }
+        return false;
     }
-    return false;
-}
+
+    // Function to update student's name and last name by index
+    function updateStudent($index, $name, $lastname) {
+        if (isset($_SESSION['student_data'][$index])) {
+            $_SESSION['student_data'][$index]['name'] = $name;
+            $_SESSION['student_data'][$index]['lastname'] = $lastname;
+        }
+    }
+
 
 ?>

@@ -1,11 +1,12 @@
 <?php
 include 'header.php'; // Include the header for layout and session start
 include 'functions.php'; // Include functions for validation and other actions
-guard();
+
 // Initialize variables for errors and notifications
 $errors = [];
 $notification = null;
-$isSuccess = false;
+
+// Assuming the validation and user checking functions are already included
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get email and password from the POST data
@@ -15,49 +16,70 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate the login credentials
     $errors = validateLoginCredentials($email, $password);
 
-    // If no errors, check if the credentials match
+    // If no errors, proceed with login
     if (empty($errors)) {
-        $users = getUsers(); // Assume getUsers() returns an array of users
+        $users = getUsers();
         if (checkLoginCredentials($email, $password, $users)) {
             // If login is successful, store the session data and redirect
-            $_SESSION['email'] = $email;  // Store email in session
-            $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  // Store the current page for redirection later
-            header("Location: dashboard.php"); // Redirect to dashboard
+            $_SESSION['email'] = $email;
+            $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
+            header("Location: dashboard.php");
             exit;
         } else {
             // If login fails, display notification
-            $notification = "Invalid login credentials.";
+            $notification = "<li>Invalid Email.</li>";
         }
     } else {
         // Display form validation errors
         $notification = displayErrors($errors);
     }
 }
+
 ?>
 
 <main>
-    <div class="container mt-5">
-        <h2 class="text-center">Login</h2>
-
-        <!-- Display error notification -->
-        <?php echo renderErrorsToView($notification); ?>
-
-        <!-- Login form -->
-        <form method="POST" action="">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" >
+    <div class="container d-flex flex-column align-items-center mt-5">
+        <!-- Error Notification Area (Display All Errors/Notifications) -->
+        <?php if (!empty($notification)): ?>
+            <div class="col-md-7 mb-3">
+                <div class="alert alert-danger" role="alert">
+                    <strong>System Errors</strong>
+                    <!-- <ul class="mb-0"> -->
+                        <?php echo $notification; ?>
+                    <!-- </ul> -->
+                </div>
             </div>
+        <?php endif; ?>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" >
+        <div class="col-md-7">
+            <!-- Card Component for Login Form -->
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>Login</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Login Form -->
+                    <form method="POST" action="">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                </div>
             </div>
-
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
+        </div>
     </div>
 </main>
+
+
 
 <?php
 include 'footer.php'; // Include the footer
