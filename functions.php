@@ -1,5 +1,6 @@
 <?php
 
+
 function getUsers() {
     return [
         ["email" => "admin1@example.com", "password" => "admin1"],
@@ -53,22 +54,24 @@ function checkLoginCredentials($email, $password, $users) {
 }
 
 function checkUserSessionIsActive() {
-    // Removed session_start() here
-    if (isset($_SESSION['email']) && isset($_SESSION['current_page'])) {
-        // Redirect to the current page
-        header("Location: " . $_SESSION['current_page']);
+    // Only redirect if the user is already logged in and trying to access the login page
+    if (isset($_SESSION['email']) && basename($_SERVER['PHP_SELF']) == 'index.php') {
+        // Redirect to the dashboard if the user is logged in
+        header("Location: dashboard.php");
         exit;
     }
 }
 
+
+
 function guard() {
-    // Removed session_start() here
-    if (empty($_SESSION['email'])) {
-        // Redirect to the login page if the user is not logged in
-        header("Location: " . getBaseURL() . "/index.php");
+    if (empty($_SESSION['email']) && basename($_SERVER['PHP_SELF']) != 'index.php') {
+        // Only redirect if the user is not logged in and is trying to access a protected page
+        header("Location: index.php"); 
         exit;
     }
 }
+
 
 function displayErrors($errors) {
     // <strong class='alert alert-danger'>System Errors</strong>

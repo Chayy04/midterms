@@ -1,12 +1,17 @@
 <?php
+session_start(); // Start the session
+
+// Redirect to dashboard if already logged in
+if (!empty($_SESSION['email'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
 include 'header.php'; // Include the header for layout and session start
 include 'functions.php'; // Include functions for validation and other actions
 
-// Initialize variables for errors and notifications
 $errors = [];
 $notification = null;
-
-// Assuming the validation and user checking functions are already included
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get email and password from the POST data
@@ -16,13 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate the login credentials
     $errors = validateLoginCredentials($email, $password);
 
-    // If no errors, proceed with login
     if (empty($errors)) {
         $users = getUsers();
         if (checkLoginCredentials($email, $password, $users)) {
-            // If login is successful, store the session data and redirect
             $_SESSION['email'] = $email;
-            $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
+            $_SESSION['current_page'] = 'dashboard.php'; // Set the direct page for the user
             header("Location: dashboard.php");
             exit;
         } else {
@@ -34,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $notification = displayErrors($errors);
     }
 }
-
 ?>
+
 
 <main>
     <div class="container d-flex flex-column align-items-center mt-5">

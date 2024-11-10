@@ -1,8 +1,8 @@
 <?php
-    
+    session_start();
     include '../header.php';
     include '../functions.php';
-    guard();  // Protect the page to ensure only logged-in users can access
+    //guard();  // Protect the page to ensure only logged-in users can access
 
     // Retrieve student data using index from session or redirect if not found
     if (isset($_GET['index'])) {
@@ -46,7 +46,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="../dashboard.php">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="student/register.php">Register Student</a></li>
+                    <li class="breadcrumb-item"><a href="register.php">Register Student</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Student</li>
                 </ol>
             </nav>

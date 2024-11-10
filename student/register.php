@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../header.php';  // Corrected path to header.php
 include '../functions.php';  // Corrected path to functions.php
 
@@ -32,13 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <main>
+
     <div class="container justify-content-between align-items-center col-8">
 
-        <h2 class=" m-4">Register a New Student</h2>
+    <h2 class=" m-4">Register a New Student</h2>
 
         <!-- breadcrumb -->
         <div class=" mt-4 w-100">
-            <div class="bg-light p-2 mb-3 border r-4">
+            <div class="bg-light p-2 mb-4 border r-4">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="../dashboard.php">Dashboard</a></li>
@@ -48,28 +50,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
 
+
         <!-- Display error messages only if the form was submitted and there are errors -->
         <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($errors)): ?>
-            <div class=" mb-5">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>System Errors</strong>
-                    <?php echo displayErrors($errors); ?>
-                    <!-- Dismiss Button -->
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
+            <?php echo renderErrorsToView(displayErrors($errors)); ?>
         <?php endif; ?>
 
         <!-- Student Registration Form with Gray Border -->
         <form method="POST" action="" class="border border-secondary-1 p-5 mb-4">
             <div class="mb-3">
                 <label for="student_id" class="form-label">Student ID</label>
-                <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Enter Student ID">
+                <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Enter Student ID" >
             </div>
 
             <div class="mb-3">
                 <label for="first_name" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" >
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name">
             </div>
 
             <div class="mb-3">
