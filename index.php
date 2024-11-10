@@ -41,17 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container d-flex flex-column align-items-center mt-5">
         <!-- Error Notification Area (Display All Errors/Notifications) -->
         <?php if (!empty($notification)): ?>
-            <div class="col-md-7 mb-3">
-                <div class="alert alert-danger" role="alert">
+            <div class="col-md-4 mb-3">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>System Errors</strong>
-                    <!-- <ul class="mb-0"> -->
-                        <?php echo $notification; ?>
-                    <!-- </ul> -->
+                    <!-- Display errors here -->
+                    <?php echo $notification; ?>
+                    <!-- Dismiss Button -->
+                    <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
         <?php endif; ?>
 
-        <div class="col-md-7">
+        <div class="col-md-4">
             <!-- Card Component for Login Form -->
             <div class="card">
                 <div class="card-header text-center">
@@ -78,8 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 </main>
-
-
 
 <?php
 include 'footer.php'; // Include the footer
