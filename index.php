@@ -1,6 +1,6 @@
 <?php
 session_start(); // Start the session
-
+$pageTitle = "Log In";
 // Redirect to dashboard if already logged in
 if (!empty($_SESSION['email'])) {
     header("Location: dashboard.php");

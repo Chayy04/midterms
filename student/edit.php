@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $pageTitle = "Edit";
     include '../header.php';
     include '../functions.php';
     //guard();  // Protect the page to ensure only logged-in users can access
