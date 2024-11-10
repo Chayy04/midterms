@@ -1,11 +1,18 @@
 <?php
 session_start();
+
 $pageTitle = "Register Student";
-include '../header.php';  // Corrected path to header.php
-include '../functions.php';  // Corrected path to functions.php
+include '../header.php'; // Corrected path to header.php
+include '../functions.php'; // Corrected path to functions.php
+guard();
 
 $errors = [];
 $student_data = [];
+
+// Initialize the student data array if it doesn't exist
+if (!isset($_SESSION['student_data'])) {
+    $_SESSION['student_data'] = [];
+}
 
 // Process the form submission for registering a student
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -19,28 +26,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate the student data
     $errors = validateStudentData($student_data);
 
-    // Check for duplicate student ID
+    // Check for duplicate student ID using getSelectedStudentIndex()
     if (empty($errors)) {
-        $duplicate = checkDuplicateStudentData($student_data);
-        if (empty($duplicate)) {
-            $_SESSION['student_data'][] = $student_data; // Store student in session
-            header("Location: register.php"); // Redirect to the same page to refresh the student list
-            exit;
+        $duplicate_index = getSelectedStudentIndex($student_data['student_id']);
+        if ($duplicate_index !== null) {
+            $errors[] = "Student ID " . htmlspecialchars($student_data['student_id']) . " already exists.";
         } else {
-            $errors[] = "Duplicate Student ID.";
+            // Store student in session if no duplicates
+            $_SESSION['student_data'][] = $student_data;
+            header("Location: register.php"); // Redirect to refresh the page
+            exit;
         }
     }
 }
 ?>
 
 <main>
-
     <div class="container justify-content-between align-items-center col-8">
 
-    <h2 class=" m-4">Register a New Student</h2>
+        <h2 class="m-4">Register a New Student</h2>
 
-        <!-- breadcrumb -->
-        <div class=" mt-4 w-100">
+        <!-- Breadcrumb -->
+        <div class="mt-4 w-100">
             <div class="bg-light p-2 mb-4 border r-4">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0">
@@ -51,22 +58,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
 
-
-        <!-- Display error messages only if the form was submitted and there are errors -->
+        <!-- Display error messages if form was submitted with errors -->
         <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($errors)): ?>
-            <?php echo renderErrorsToView(displayErrors($errors)); ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>System Errors</strong>
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?php echo htmlspecialchars($error); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+                <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>            </div>
         <?php endif; ?>
 
         <!-- Student Registration Form with Gray Border -->
         <form method="POST" action="" class="border border-secondary-1 p-5 mb-4">
             <div class="mb-3">
                 <label for="student_id" class="form-label">Student ID</label>
-                <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Enter Student ID" >
+                <input type="number" class="form-control" id="student_id" name="student_id" placeholder="Enter Student ID" >
             </div>
 
             <div class="mb-3">
                 <label for="first_name" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name">
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" >
             </div>
 
             <div class="mb-3">
@@ -74,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" >
             </div>
 
-            <button type="submit" class="btn btn-primary ">Add Student</button>
+            <button type="submit" class="btn btn-primary">Add Student</button>
         </form>
 
         <!-- List of Registered Students with Gray Border -->
@@ -89,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <th>Student ID</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Option</th>
+                                <th>Options</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -101,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <td>
                                         <!-- Edit Button -->
                                         <a href="edit.php?index=<?php echo $index; ?>" class="btn btn-info btn-sm">Edit</a>
-                                        
+
                                         <!-- Delete Button -->
                                         <a href="delete.php?index=<?php echo $index; ?>" class="btn btn-danger btn-sm">Delete</a>
                                     </td>
@@ -118,5 +131,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </main>
 
 <?php
-include '../footer.php'; 
+include '../footer.php';
 ?>

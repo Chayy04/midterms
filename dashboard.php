@@ -25,23 +25,25 @@ guard();  // Ensure that the user is logged in to access the dashboard
 <main>
     <br>
     <div class="container d-flex justify-content-between align-items-center col-md-7">
-        <h3>Welcome to the System: <?php echo $_SESSION['email']; ?></h3>
+        <h4>Welcome to the System: <?php echo $_SESSION['email']; ?></h4>
         <button onclick="window.location.href='logout.php'" class="btn btn-danger">Logout</button>
     </div>
 
-    <!-- Register Student Card -->
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-7">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Register a Student</h5>
-                </div>
-                <div class="card-body">
-                    <p class="justify-text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde molestias facere, cum debitis nam quis fugiat! Vero, mollitia. Nulla minima dolore molestiae eligendi ducimus beatae ipsum vitae impedit! Ipsa illo eum soluta dolorem earum libero quam necessitatibus dolorum culpa! In aliquid quo rem perspiciatis quibusdam voluptatem, repellat eum corrupti amet.</p>
+    <!-- Register Student Card --> 
+    <div class="container d-flex justify-content-between align-items-center col-md-7"> 
+        <div class="container row d-flex justify-content-between align-items-right mt-5">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Register a Student</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="justify-text-center">This section allows you to  register a new student in the system. Click the button bellow to proceed with the registration process.</p>
 
-                    <!-- Button to proceed to register a student -->
-                    <div class="d-grid gap-2">
-                        <a href="student/register.php" class="btn btn-primary w-100">Register a Student</a>
+                        <!-- Button to proceed to register a student -->
+                        <div class="d-grid gap-2">
+                            <a href="student/register.php" class="btn btn-primary w-100">Register a Student</a>
+                        </div>
                     </div>
                 </div>
             </div>
