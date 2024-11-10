@@ -1,8 +1,9 @@
 <?php
-    
+    session_start();
+    $pageTitle = "Edit";
     include '../header.php';
     include '../functions.php';
-    guard();  // Protect the page to ensure only logged-in users can access
+    //guard();  // Protect the page to ensure only logged-in users can access
 
     // Retrieve student data using index from session or redirect if not found
     if (isset($_GET['index'])) {
@@ -35,14 +36,31 @@
 ?>
 
 <main>
-    <div class="container mt-5">
-        <h2>Edit Student</h2>
+
+<div class="container justify-content-between align-items-center col-8">
+
+    <h3 class=" mt-4">Edit Student</h3>
+
+    <!-- breadcrumb -->
+    <div class="w-100 mt-5">
+        <div class="container justify-content-between align-items-center bg-light p-2 border r-4 ">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="../dashboard.php">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="register.php">Register Student</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Student</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    
+    <div class=" border border-secondary-1 p-5 mt-3" >
 
         <!-- Edit Student Form -->
         <form method="POST" action="">
             <div class="mb-3">
                 <label for="student_id" class="form-label">Student ID</label>
-                <input type="text" class="form-control" id="student_id" name="student_id" value="<?php echo htmlspecialchars($student['student_id']); ?>" readonly>
+                <input type="text" class="form-control bg-light" id="student_id" name="student_id" value="<?php echo htmlspecialchars($student['student_id']); ?>" readonly>
             </div>
 
             <div class="mb-3">
@@ -55,9 +73,10 @@
                 <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo htmlspecialchars($student['last_name']); ?>" required>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Update Student</button>
+            <button type="submit" class="btn btn-primary">Update Student</button>
         </form>
     </div>
+</div>
 </main>
 
 <?php

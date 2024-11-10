@@ -1,11 +1,17 @@
 <?php
+session_start(); // Start the session
+$pageTitle = "Log In";
+// Redirect to dashboard if already logged in
+if (!empty($_SESSION['email'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
 include 'header.php'; // Include the header for layout and session start
 include 'functions.php'; // Include functions for validation and other actions
-guard();
-// Initialize variables for errors and notifications
+
 $errors = [];
 $notification = null;
-$isSuccess = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get email and password from the POST data
@@ -15,18 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate the login credentials
     $errors = validateLoginCredentials($email, $password);
 
-    // If no errors, check if the credentials match
     if (empty($errors)) {
-        $users = getUsers(); // Assume getUsers() returns an array of users
+        $users = getUsers();
         if (checkLoginCredentials($email, $password, $users)) {
-            // If login is successful, store the session data and redirect
-            $_SESSION['email'] = $email;  // Store email in session
-            $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  // Store the current page for redirection later
-            header("Location: dashboard.php"); // Redirect to dashboard
+            $_SESSION['email'] = $email;
+            $_SESSION['current_page'] = 'dashboard.php'; // Set the direct page for the user
+            header("Location: dashboard.php");
             exit;
         } else {
             // If login fails, display notification
-            $notification = "Invalid login credentials.";
+            $notification = "<li>Invalid Email.</li>";
         }
     } else {
         // Display form validation errors
@@ -35,27 +39,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+
 <main>
-    <div class="container mt-5">
-        <h2 class="text-center">Login</h2>
-
-        <!-- Display error notification -->
-        <?php echo renderErrorsToView($notification); ?>
-
-        <!-- Login form -->
-        <form method="POST" action="">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" >
+    <div class="container d-flex flex-column align-items-center mt-5">
+        <!-- Error Notification Area (Display All Errors/Notifications) -->
+        <?php if (!empty($notification)): ?>
+            <div class="col-md-4 mb-3">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>System Errors</strong>
+                    <!-- Display errors here -->
+                    <?php echo $notification; ?>
+                    <!-- Dismiss Button -->
+                    <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
+        <?php endif; ?>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" >
+        <div class="col-md-4">
+            <!-- Card Component for Login Form -->
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>Login</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Login Form -->
+                    <form method="POST" action="">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                </div>
             </div>
-
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
+        </div>
     </div>
 </main>
 
