@@ -134,22 +134,31 @@ function validateStudentData($student_data) {
     return $errors;
 }
 
-
-    // Function to get a student's data by index
-    function getSelectedStudentData($index) {
-        if (isset($_SESSION['student_data'][$index])) {
-            return $_SESSION['student_data'][$index];
-        }
-        return false;
-    }
-
-    // Function to update student's name and last name by index
-    function updateStudent($index, $name, $lastname) {
-        if (isset($_SESSION['student_data'][$index])) {
-            $_SESSION['student_data'][$index]['name'] = $name;
-            $_SESSION['student_data'][$index]['lastname'] = $lastname;
+function getSelectedStudentIndex($student_id) {
+    if (!empty($_SESSION['student_data'])) {
+        foreach ($_SESSION['student_data'] as $index => $student) {
+            if ($student['student_id'] === $student_id) {
+                return $index; // Return index if found
+            }
         }
     }
+    return null; // Return null if student_id not found
+}
 
+// Function to get a student's data by index
+function getSelectedStudentData($index) {
+    if (isset($_SESSION['student_data'][$index])) {
+        return $_SESSION['student_data'][$index];
+    }
+    return false;
+}
+
+// Function to update student's name and last name by index
+// function updateStudent($index, $name, $lastname) {
+//     if (isset($_SESSION['student_data'][$index])) {
+//         $_SESSION['student_data'][$index]['name'] = $name;
+//         $_SESSION['student_data'][$index]['lastname'] = $lastname;
+//     }
+// }
 
 ?>
