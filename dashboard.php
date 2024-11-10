@@ -1,6 +1,6 @@
 <?php
 session_start(); // Ensure the session is started
-
+$pageTitle = "Dashboard";
 // Check if the user is logged in, if not, redirect to login page
 if (empty($_SESSION['email'])) {
     header("Location: index.php");
