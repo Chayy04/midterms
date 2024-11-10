@@ -33,12 +33,12 @@
         <h3 class=" mt-4">Delete a Student</h3>
 
             <!-- breadcrumb -->
-    <div class="w-100 mt-4">
+    <div class="w-100 mt-5">
         <div class="container justify-content-between align-items-center bg-light p-2 border r-4 ">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="../dashboard.php">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="student/register.php">Register</a></li>
+                    <li class="breadcrumb-item"><a href="student/register.php">Register Student</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Delete Student</li>
                 </ol>
             </nav>
@@ -51,7 +51,7 @@
             <form method="POST" action="">
                 <div class="mb-2">
                               
-                    <label class="form-label">Are you sure you want to delete this student?</label> 
+                    <label class="form-label">Are you sure you want to delete the following student record?</label> 
                         <ul style="list-style-type:disc;">
                             <li><strong>Student ID:</strong> <?php echo htmlspecialchars($student['student_id']); ?></li>
                             <li><strong>First Name:</strong> <?php echo htmlspecialchars($student['first_name']); ?></li>

@@ -41,12 +41,12 @@
     <h3 class=" mt-4">Edit Student</h3>
 
     <!-- breadcrumb -->
-    <div class="w-100 mt-4">
+    <div class="w-100 mt-5">
         <div class="container justify-content-between align-items-center bg-light p-2 border r-4 ">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="../dashboard.php">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="student/register.php">Register</a></li>
+                    <li class="breadcrumb-item"><a href="student/register.php">Register Student</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Student</li>
                 </ol>
             </nav>
